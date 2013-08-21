@@ -21,6 +21,12 @@ to restrict their access. A few examples of this come to mind:
 When you use this module, you `require` it and configure it in your controlled script.
 Then any call/require after that will be forced to use these predefined scoped directories.
 
+Notes
+-----
+
+Since this is written purely in Javascript, there are likely places that a user could
+override other methods to gain access. I have tried to prevent this with `Object.freeze`
+on the two `Object`'s that are modified so that they can't be modified again.
 
 Overrides
 ---------
