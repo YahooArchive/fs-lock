@@ -1,0 +1,32 @@
+{
+    "name": "fs-lock",
+    "description": "open_basedir and file_accessdir for Node",
+    "author": "Dav Glass <davglass@gmail.com>",
+    "version": "0.0.1",
+    "devDependencies": {
+        "jshint": "~0.9.0",
+        "yui-lint": "~0.1.1",
+        "istanbul": "~0.1.8",
+        "vows": "*",
+        "getrusage": "*"
+    },
+    "keywords": [
+        "open_basedir", "file_accessdir"
+    ],
+    "main": "./lib/index.js",
+    "scripts": {
+        "pretest": "jshint --config ./node_modules/yui-lint/jshint.json ./lib/",
+        "test": "istanbul cover --print both vows -- --spec ./tests/*.js"
+    },
+    "bugs": { "url" : "http://github.com/yahoo/fs-lock/issues" },
+    "licenses":[
+        {
+            "type" : "BSD",
+            "url" : "https://github.com/yahoo/fs-lock/blob/master/LICENSE"
+        }
+    ],
+    "repository": {
+        "type":"git",
+        "url":"http://github.com/yahoo/fs-lock.git"
+    }
+}
