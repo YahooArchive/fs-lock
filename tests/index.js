@@ -353,7 +353,7 @@ var tests = {
             return process.dlopen(path.join(__dirname, 'foo.node'), 'foo.node');
         },
         'should allow': function(topic) {
-            assert.equal('dlopen(foo.node, 1): image not found', topic.message);
+            assert.isFalse(/Access debied/.test(topic.message));
         }
     },
     'process.binding': {
