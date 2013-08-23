@@ -146,7 +146,9 @@ var tests = {
                 'file_accessdir': [path.join(__dirname, '../'), '/tmp']
             });
             var self = this;
+            try {
             fs.unlinkSync('/tmp/package.json');
+            } catch (e) {}
             fs.symlink(path.join(__dirname, '../package.json'), '/tmp/package.json', function(err, data) {
                 self.callback(null, {
                     err: err,
