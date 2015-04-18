@@ -4,29 +4,32 @@
     "author": "Dav Glass <davglass@gmail.com>",
     "version": "0.0.1",
     "devDependencies": {
-        "jshint": "~0.9.0",
-        "yui-lint": "~0.1.1",
-        "istanbul": "~0.1.8",
-        "vows": "*",
-        "getrusage": "*"
+        "contextify": "~0.1.13",
+        "istanbul": "~0.3.13",
+        "jshint": "^2.7.0",
+        "vows": "~0.8.1"
     },
     "keywords": [
-        "open_basedir", "file_accessdir"
+        "open_basedir",
+        "file_accessdir"
     ],
     "main": "./lib/index.js",
     "scripts": {
-        "pretest": "jshint --config ./node_modules/yui-lint/jshint.json ./lib/",
+        "pretest": "jshint ./lib/",
+        "raw": "vows -- --spec ./tests/*.js",
         "test": "istanbul cover --print both vows -- --spec ./tests/*.js"
     },
-    "bugs": { "url" : "http://github.com/yahoo/fs-lock/issues" },
-    "licenses":[
+    "bugs": {
+        "url": "http://github.com/yahoo/fs-lock/issues"
+    },
+    "licenses": [
         {
-            "type" : "BSD",
-            "url" : "https://github.com/yahoo/fs-lock/blob/master/LICENSE"
+            "type": "BSD",
+            "url": "https://github.com/yahoo/fs-lock/blob/master/LICENSE"
         }
     ],
     "repository": {
-        "type":"git",
-        "url":"http://github.com/yahoo/fs-lock.git"
+        "type": "git",
+        "url": "http://github.com/yahoo/fs-lock.git"
     }
 }
