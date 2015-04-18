@@ -338,7 +338,13 @@ var tests = {
                 'open_basedir': [__dirname],
                 'file_accessdir': [__dirname]
             });
-            return process.dlopen('../../foo.node');
+            var res = null;
+            try {
+                process.dlopen('../../foo.node');
+            } catch (e) {
+                res = e;
+            }
+            return res;
         },
         'should throw access denied error': function(topic) {
             assert.equal('Access denied (native module: ../../foo.node)', topic.message);
@@ -350,15 +356,31 @@ var tests = {
                 'open_basedir': [__dirname],
                 'file_accessdir': [__dirname]
             });
-            return process.dlopen(path.join(__dirname, 'foo.node'), 'foo.node');
+            var res = null;
+            try {
+                process.dlopen(path.join(__dirname, 'foo.node'), 'foo.node');
+            } catch (e) {
+                res = e;
+            }
+            return res;
         },
         'should allow': function(topic) {
-            assert.isFalse(/Access debied/.test(topic.message));
+            assert.isFalse(/Access denied/.test(topic.message));
         }
     },
     'process.binding': {
         topic: function() {
             return process.binding('fs');
+        },
+        'should return augmented FS object': function(topic) {
+            assert.ok(topic);
+            assert.isFunction(topic.open);
+            assert.ok(topic['@fs-lock']);
+        }
+    },
+    'process.binding w/ null character': {
+        topic: function() {
+            return process.binding('fs\0');
         },
         'should return augmented FS object': function(topic) {
             assert.ok(topic);
@@ -372,11 +394,11 @@ var tests = {
                 'open_basedir': [path.join(__dirname, '../')],
                 'file_accessdir': [path.join(__dirname, '../')]
             });
-            return require('getrusage');
+            return require('contextify');
         },
         'should load native module': function(topic) {
             assert.ok(topic);
-            assert.isFunction(topic.usage);
+            assert.isFunction(topic.createContext);
         }
     },
     'isAccessAllowed: pass': {
