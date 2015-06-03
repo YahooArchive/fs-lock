@@ -22,12 +22,7 @@
   "bugs": {
     "url": "http://github.com/yahoo/fs-lock/issues"
   },
-  "licenses": [
-    {
-      "type": "BSD",
-      "url": "https://github.com/yahoo/fs-lock/blob/master/LICENSE"
-    }
-  ],
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "http://github.com/yahoo/fs-lock.git"
