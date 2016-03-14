@@ -60,6 +60,7 @@ var allowPath = function(pathname, name) {
         }
 
         nextChar = pathname[curPath.length];
+        /*istanbul ignore next*/
         if (curPath[curPath.length - 1] !== '/' && nextChar && nextChar !== '/') {
             continue;
         }
@@ -89,6 +90,7 @@ function augmentFS(binding) {
         } else {
           var err = new Error('Access denied (file: ' + path + ')'),
               arg = arguments[num - 1];
+          /*istanbul ignore else*/
           if (arg === undefined) {
             throw err;
           } else if (typeof arg === 'object') {
@@ -119,6 +121,7 @@ function augmentFS(binding) {
 
             err = new Error('Access denied (file: ' + str.join(', ') + ')');
             arg = arguments[num - 1];
+            /*istanbul ignore else*/
             if (arg === undefined) {
                 throw err;
             } else if (typeof arg === 'object') {
@@ -162,11 +165,12 @@ function setupProtectedFS() {
         mod = mod.replace(/\0/g, '');
         return ((mod === 'fs') ? augmentedFS : oldBinding(mod));
     };
-    process.dlopen = function(path) {
-      if (!block_access || isAccessAllowed(path)) {
+    process.dlopen = function(mod, path) {
+      var real_path = mod.filename || mod;
+      if (!block_access || isAccessAllowed(real_path)) {
         return oldDLopen.apply(process, arguments);
       }
-      throw new Error('Access denied (native module: ' + path + ')');
+      throw new Error('Access denied (native module: ' + real_path + ')');
     };
 }
 
