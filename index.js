@@ -27,12 +27,12 @@ var getConfig = function() {
 };
 
 function normalizePath(full) {
-  var dir_name = full;
-
-  if (dir_name[0] !== '/') {
-    dir_name = path.normalize(currentCWD + '/' + dir_name);
+  var dir_name = path.resolve(full);
+  
+  if(dir_name.startsWith('\\\\?\\')){
+      dir_name = dir_name.substring(4, dir_name.length);
   }
-  dir_name += (dir_name[dir_name.length - 1] === '/') ? '' : '/';
+  dir_name += (dir_name[dir_name.length - 1] === path.sep) ? '' : path.sep;
   return dir_name;
 }
 
@@ -46,11 +46,6 @@ var allowPath = function(pathname, name) {
         paths = conf[name],
         i, nextChar, curPath;
 
-    if (pathname[0] !== '/') {
-        pathname = path.normalize(currentCWD + '/' + pathname);
-    } else {
-        pathname = path.normalize(pathname);
-    }
     pathname = normalizePath(pathname);
 
     for (i = 0; i < paths.length; i++) {
@@ -61,7 +56,7 @@ var allowPath = function(pathname, name) {
 
         nextChar = pathname[curPath.length];
         /*istanbul ignore next*/
-        if (curPath[curPath.length - 1] !== '/' && nextChar && nextChar !== '/') {
+        if (curPath[curPath.length - 1] !== path.sep && nextChar && nextChar !== path.sep) {
             continue;
         }
 
