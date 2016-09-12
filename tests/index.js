@@ -307,4 +307,14 @@ describe('fslock unit tests', function() {
         assert.ok(true);
     });
 
+    it('should work with windows style paths', function() {
+        fsLock({
+            'open_basedir': ['/'],
+            'file_accessdir': ['/']
+        });
+        // Simulate the path._makeLong prefix on windows.
+        var dir_name = fsLock.normalizePath('\\\\?\\/tmp');
+        assert.equal('/tmp/', dir_name);
+    });
+
 });
