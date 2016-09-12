@@ -27,13 +27,15 @@ var getConfig = function() {
 };
 
 function normalizePath(full) {
-  var dir_name = path.resolve(full);
-  
-  if(dir_name.startsWith('\\\\?\\')){
-      dir_name = dir_name.substring(4, dir_name.length);
-  }
-  dir_name += (dir_name[dir_name.length - 1] === path.sep) ? '' : path.sep;
-  return dir_name;
+    var dir_name = full;
+
+    if(dir_name.indexOf('\\\\?\\') === 0){
+        dir_name = dir_name.substring(4, dir_name.length);
+    }
+    dir_name = path.resolve(dir_name);
+
+    dir_name += (dir_name[dir_name.length - 1] === path.sep) ? '' : path.sep;
+    return dir_name;
 }
 
 
