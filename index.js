@@ -29,7 +29,7 @@ var getConfig = function() {
 function normalizePath(full) {
     var dir_name = full;
 
-    if(dir_name.indexOf('\\\\?\\') === 0){
+    if (dir_name.indexOf('\\\\?\\') === 0) {
         dir_name = dir_name.substring(4, dir_name.length);
     }
     dir_name = path.resolve(dir_name);
